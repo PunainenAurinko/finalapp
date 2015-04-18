@@ -1,41 +1,65 @@
-<!DOCTYPE html>
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Course: MAD9022 Cross-Platform App Development
+Students: Justin Bennet & Vladimir Tonkonogov
+Project: Final App
 -->
+
+<!DOCTYPE html>
+
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Final App</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- application title bar -->
+        <header class="apptitle">
+            <h1>Final App</h1>
+        </header>
+        <div class="push">
+
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+    </div>
+    <!-- tabbed navigation bar -->
+    <nav class="tabs">
+        <ul>
+            <li class="li-1-2">
+                <a href="#grid" data-role="pagelink" class="activetab">
+                    <!--
+                SVG taken from
+                https://www.iconfinder.com/icons/186401/grid_icon#size=128
+-->
+
+                    <span class="linkarea"><svg enable-background="new 0 0 32 32" width="40px" height="40px" fill="#eee" id="Layer_1" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="grid-2"><path d="M10.246,4.228c0-0.547-0.443-0.991-0.99-0.991H3.914c-0.548,0-0.991,0.443-0.991,0.991V9.57   c0,0.546,0.443,0.99,0.991,0.99h5.342c0.547,0,0.99-0.444,0.99-0.99V4.228z" fill="#515151"/><path d="M19.453,4.228c0-0.547-0.443-0.991-0.991-0.991h-5.343c-0.546,0-0.99,0.443-0.99,0.991V9.57   c0,0.546,0.444,0.99,0.99,0.99h5.343c0.548,0,0.991-0.444,0.991-0.99V4.228z" fill="#515151"/><path d="M28.868,4.228c0-0.547-0.443-0.991-0.99-0.991h-5.342c-0.548,0-0.991,0.443-0.991,0.991V9.57   c0,0.546,0.443,0.99,0.991,0.99h5.342c0.547,0,0.99-0.444,0.99-0.99V4.228z" fill="#515151"/><path d="M10.246,13.224c0-0.547-0.443-0.99-0.99-0.99H3.914c-0.548,0-0.991,0.443-0.991,0.99v5.342   c0,0.549,0.443,0.99,0.991,0.99h5.342c0.547,0,0.99-0.441,0.99-0.99V13.224z" fill="#515151"/><path d="M19.453,13.224c0-0.547-0.443-0.99-0.991-0.99h-5.343c-0.546,0-0.99,0.443-0.99,0.99v5.342   c0,0.549,0.444,0.99,0.99,0.99h5.343c0.548,0,0.991-0.441,0.991-0.99V13.224z" fill="#515151"/><path d="M28.868,13.224c0-0.547-0.443-0.99-0.99-0.99h-5.342c-0.548,0-0.991,0.443-0.991,0.99v5.342   c0,0.549,0.443,0.99,0.991,0.99h5.342c0.547,0,0.99-0.441,0.99-0.99V13.224z" fill="#515151"/><path d="M10.246,22.43c0-0.545-0.443-0.99-0.99-0.99H3.914c-0.548,0-0.991,0.445-0.991,0.99v5.344   c0,0.547,0.443,0.99,0.991,0.99h5.342c0.547,0,0.99-0.443,0.99-0.99V22.43z" fill="#515151"/><path d="M19.453,22.43c0-0.545-0.443-0.99-0.991-0.99h-5.343c-0.546,0-0.99,0.445-0.99,0.99v5.344   c0,0.547,0.444,0.99,0.99,0.99h5.343c0.548,0,0.991-0.443,0.991-0.99V22.43z" fill="#515151"/><path d="M28.868,22.43c0-0.545-0.443-0.99-0.99-0.99h-5.342c-0.548,0-0.991,0.445-0.991,0.99v5.344   c0,0.547,0.443,0.99,0.991,0.99h5.342c0.547,0,0.99-0.443,0.99-0.99V22.43z" fill="#515151"/></g></svg></span>
+                    <span class="linkarea">Photo Grid</span>
+                </a>
+                <!--                <a href="#home" data-role="pagelink" class="activetab">Photo Grid</a>-->
+            </li>
+
+            <li class="li-1-2">
+                <a href="#cam" data-role="pagelink">
+                    <!--
+                    SVG taken from
+https://www.iconfinder.com/icons/196911/camera_fez_images_lens_photo_photography_shot_shutter_icon#size=128
+-->
+                    <span class="linkarea"><svg enable-background="new 0 0 512 512" width="40px" height="40px" fill="#eee" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+                        <path d="M473.162,122.544h-55.297c-21.365,0-45.767-16.043-54.236-35.657l-0.278-0.645  c-8.47-19.613-32.87-35.656-54.233-35.656H202.871c-21.366,0-45.764,16.043-54.236,35.656l-0.278,0.645  c-8.467,19.614-32.867,35.657-54.233,35.657H38.839C17.473,122.544,0,140.022,0,161.383v261.192  c0,21.366,17.473,38.839,38.839,38.839h434.323c21.365,0,38.838-17.473,38.838-38.839V161.383  C512,140.022,494.527,122.544,473.162,122.544z M255.994,409.984c-72.312,0-130.949-58.635-130.949-130.948  c0-72.325,58.637-130.955,130.949-130.955c72.325,0,130.961,58.63,130.961,130.955C386.955,351.35,328.319,409.984,255.994,409.984z  " fill="#7F7F7F" />
+                    </svg></span>
+                    <span class="linkarea">Take Photos</span>
+                </a>
+                <!--                <a href="#two" data-role="pagelink">Take Photos</a>-->
+            </li>
+        </ul>
+    </nav>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
 </html>

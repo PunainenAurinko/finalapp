@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F62ED3E9-E98B-4716-84F2-5CC418A93E1B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FinalApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C27B2DB29B9D39B5EDB27CFB3A1BEF75DA67D020</key>
+		<string>https://github.com/tonk0006/finalapp.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/FinalApp.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C27B2DB29B9D39B5EDB27CFB3A1BEF75DA67D020</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/tonk0006/finalapp.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C27B2DB29B9D39B5EDB27CFB3A1BEF75DA67D020</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C27B2DB29B9D39B5EDB27CFB3A1BEF75DA67D020</string>
+			<key>IDESourceControlWCCName</key>
+			<string>finalapp</string>
+		</dict>
+	</array>
+</dict>
+</plist>

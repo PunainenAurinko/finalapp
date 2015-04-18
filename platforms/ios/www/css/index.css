@@ -1,115 +1,219 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+Course: MAD9022 Cross-Platform App Development
+Students: Justin Bennet & Vladimir Tonkonogov
+Project: Final App
  */
+/**************************************
+          DEFAULTS
+***************************************/
+
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*:link,
+*:visited,
+*:hover,
+*:active,
+*:focus,
+.active {
+    -webkit-transition: color .5s linear, background-color .7s ease-out, opacity .5s ease-in-out, -webkit-transform .6s;
+    transition: color .5s linear, background-color .7s ease-out, opacity .5s ease-in-out, transform .6s .1s;
+}
+
+html,
+body {
+    background-color: #222;
+    height: 100%;
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
+    font-size: 5vmin;
+/*    margin: -4rem;*/
+    /* set the starting size for the app */
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+.wrapper {
+    min-height: 100%;
+/*
+    height: auto !important;
+     This line and the next line are not necessary unless you need IE6 support 
+    
+    height: 100%;
+*/
+    margin: 0 auto -20rem;
+    /* the bottom margin is the negative value of the footer's height */
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+.tabs,
+.push {
+    height: 4rem;
+    /* .push must be the same height as .tabs */
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+h2 {
+    font-family: 'Julius Sans One', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 2.4rem;
+    line-height: 1.6;
+    color: #eee;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+h4 {
+    font-family: 'Julius Sans One', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #b5a4ac;
+    font-size: 1.4rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+p {
+    font-size: 1.2rem;
+    line-height: 2;
+    color: #b5a4ac;
+    font-family: 'Antic Didone', Goudy Old Style, Garamond, Times New Roman, serif;
+}
+/**************************************
+          PAGES
+**************************************/
+
+[data-role=page] {
+    width: 90%;
+    border-radius: 15px;
+    background-color: #333;
+    color: #eee;
+    /*7rem is space for the app title 
+	as well as the navigation */
+    
+    position: absolute;
+    top: 7.2rem;
+    padding: 1rem 1rem 4rem 1rem;
+    display: block;
+    opacity: 1;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+[data-role=page].active {
+    display: block;
+    border-radius: 15px;
+    min-height: 50%;
+    width: 89.5%;
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    background-color: #444;
+    border: 2px solid #eee;
+    //margin-left: 2px;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+canvas {
+    border-radius: 15px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: 2px solid #eee;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+/**************************************
+          TITLE
+***************************************/
+
+.apptitle {
+    height: 4rem;
+    background-color: #444;
+    color: #eee;
+    border-radius: 0 0 15px 15px;
+    border: 2px solid #eee;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+.apptitle h1 {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    padding: 1rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 10px #aaa;
+    letter-spacing: 10px;
+    word-spacing: 10px;
+    font-family: 'Julius Sans One', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/**************************************
+          NAVBAR 
+***************************************/
+
+.tabs {
+    height: 4rem;
+/*
+    position: absolute;
+    bottom: 0;
+*/
+}
+
+.tabs ul {
+    list-style: none;
+    overflow: hidden;
+}
+
+.tabs li {
+    float: left;
+    height: 4rem;
+}
+
+.li-1-2 {
+    width: 50%;
+}
+
+.tabs [data-role=pagelink] {
+    color: #777;
+    background: #444;
+    display: block;
+    text-align: center;
+    height: 4rem;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    font-family: 'Julius Sans One', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 2rem;
+    padding: 1rem 1rem;
+    text-shadow: 2px 2px 10px #777;
+    border: 2px solid #eee;
+    /* shadow helps make the non-active tabs receed */
+    
+    border-radius: 15px 15px 0 0;
+    -webkit-box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
+    -moz-box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
+    box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
+}
+
+.tabs [data-role=pagelink].activetab {
+    background: #ddd;
+    /* match the background of the screen */
+    
+    color: #eee;
+    /* colour makes the active tab jump forward */
+    
+    font-family: 'Julius Sans One', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-shadow: 2px 2px 10px #555;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.tabs [data-role=pagelink].activetab svg {
+    fill: #000;
+}
+
+.linkarea {
+    float: left;
+    width: 40%;
+}
+/**************************************
+          ICONS 
+***************************************/
+
+svg {
+    -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+            transform: translateY(-5px);
 }
