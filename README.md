@@ -1,7 +1,7 @@
-# finalapp
+# Final App for MAD9022
 
 ****************************
-Description and Requirements
+# Description and Requirements
 ****************************
 
 The final project is a tablet app. You and a partner may build it for an Android tablet or iPad, your choice.
