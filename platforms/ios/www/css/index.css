@@ -42,12 +42,6 @@ body {
     /* the bottom margin is the negative value of the footer's height */
 }
 
-.tabs,
-.push {
-    height: 4rem;
-    /* .push must be the same height as .tabs */
-}
-
 h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 2rem;
@@ -125,12 +119,10 @@ canvas {
           NAVBAR 
 ***************************************/
 
-.tabs {
+.tabs,
+.push {
     height: 4rem;
-/*
-    position: absolute;
-    bottom: 0;
-*/
+    /* .push must be the same height as .tabs */
 }
 
 .tabs ul {

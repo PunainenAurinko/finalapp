@@ -831,3 +831,20 @@ To disable web storage backup to iCloud, set the BackupWebStorage preference to 
 2015-04-18 20:09:22.391 FinalApp[9967:453442] [CDVTimer][TotalPluginStartup] 53.791046ms
 2015-04-18 20:09:22.684 FinalApp[9967:453442] Resetting plugins due to page load.
 2015-04-18 20:09:22.730 FinalApp[9967:453442] Finished load of: file:///Users/VladimirTonkonogov/Library/Developer/CoreSimulator/Devices/CA27C74B-21FA-4DFB-963A-D243A7AD40D1/data/Containers/Bundle/Application/D2F9D02F-9437-432A-BE0C-9B2CC0272048/FinalApp.app/www/index.html#home
+2015-04-18 20:13:39.764 FinalApp[10080:457590] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/VladimirTonkonogov/Library/Developer/CoreSimulator/Devices/CA27C74B-21FA-4DFB-963A-D243A7AD40D1/data/Containers/Data/Application/BCDC43D3-0A38-4B3D-A098-7ED37DBCE699/Library/Cookies/Cookies.binarycookies
+2015-04-18 20:13:39.848 FinalApp[10080:457590] Apache Cordova native platform version 3.8.0 is starting.
+2015-04-18 20:13:39.849 FinalApp[10080:457590] Multi-tasking -> Device: YES, App: YES
+2015-04-18 20:13:39.850 FinalApp[10080:457590] Unlimited access to network resources
+2015-04-18 20:13:39.853 FinalApp[10080:457590] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-04-18 20:13:40.045 FinalApp[10080:457590] [CDVTimer][file] 3.054023ms
+2015-04-18 20:13:40.077 FinalApp[10080:457590] [CDVTimer][splashscreen] 31.017959ms
+2015-04-18 20:13:40.077 FinalApp[10080:457590] [CDVTimer][TotalPluginStartup] 34.331024ms
+2015-04-18 20:13:40.449 FinalApp[10080:457590] Resetting plugins due to page load.
+2015-04-18 20:13:40.481 FinalApp[10080:457590] Finished load of: file:///Users/VladimirTonkonogov/Library/Developer/CoreSimulator/Devices/CA27C74B-21FA-4DFB-963A-D243A7AD40D1/data/Containers/Bundle/Application/0691E913-DF17-4D70-9093-0A3F50CA1B0F/FinalApp.app/www/index.html#home
