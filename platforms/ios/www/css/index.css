@@ -27,19 +27,10 @@ Project: Final App
 html,
 body {
     background-color: #fff;
-    height: 100%;
-/*    margin-bottom: -20rem;*/
 }
 
 body {
     font-size: 5vmin;
-    /* set the starting size for the app */
-}
-
-.wrapper {
-    min-height: 100%;
-    margin: 0 auto -20rem;
-    /* the bottom margin is the negative value of the footer's height */
 }
 
 h2 {
@@ -55,6 +46,7 @@ p {
     color: #000;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 /**************************************
           PAGES
 **************************************/
@@ -67,23 +59,20 @@ p {
     position: absolute;
     padding: 1rem 1rem 4rem 1rem;
     opacity: 1;
-    z-index: 5;
     -webkit-transform: scale(0);
-    -ms-transform: scale(0);
-    transform: scale(0);
+        -ms-transform: scale(0);
+            transform: scale(0);
 }
 
 [data-role=page].active {
     border-radius: 15px;
     width: 100%;
     opacity: 1;
-    z-index: 10;
     -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
+        -ms-transform: scale(1);
+            transform: scale(1);
     background-color: #fff;
     border: 2px solid #000;
-    //margin-left: 2px;
 }
 
 /*
@@ -121,10 +110,11 @@ canvas {
           NAVBAR 
 ***************************************/
 
-.tabs,
-.push {
+.tabs {
     height: 4rem;
-    /* .push must be the same height as .tabs */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .tabs ul {
@@ -144,7 +134,6 @@ canvas {
 .tabs [data-role=pagelink] {
     color: #000;
     background: #fff;
-    z-index: 15;
     display: block;
     text-align: center;
     height: 4rem;
@@ -157,8 +146,8 @@ canvas {
     border: 2px solid #000;
     border-radius: 15px 15px 0 0;
     -webkit-box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
-    -moz-box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
-    box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
+       -moz-box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
+            box-shadow: inset 2px 2px 6px rgba(33, 33, 33, 0.5);
 }
 
 .tabs [data-role=pagelink].activetab {
@@ -167,8 +156,8 @@ canvas {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: 2px 2px 10px #555;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
 }
 
 .tabs [data-role=pagelink].activetab svg {
@@ -179,6 +168,7 @@ canvas {
     float: left;
     width: 40%;
 }
+
 /**************************************
           ICONS 
 ***************************************/
