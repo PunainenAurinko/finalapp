@@ -1,12 +1,14 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8' ?>
 <widget id="ca.edumedia.tonk0006.finalapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FinalApp</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Final Project for MAD9022 course.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="tonk0006@algonquinlive.com" href="http://www.algonquincollege.com/mediaanddesign/program/mobile-application-design-and-development/">
+        Justin Bennet and Vladimir Tonkonogov
     </author>
+    <preference name="Fullscreen" value="true" />
+    <preference name="orientation" value="landscape" />
     <content src="index.html" />
     <access origin="*" />
 </widget>

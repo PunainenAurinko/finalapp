@@ -43,11 +43,13 @@
     </feature>
     <name>FinalApp</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Final Project for MAD9022 course.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="tonk0006@algonquinlive.com" href="http://www.algonquincollege.com/mediaanddesign/program/mobile-application-design-and-development/">
+        Justin Bennet and Vladimir Tonkonogov
     </author>
+    <preference name="Fullscreen" value="true" />
+    <preference name="orientation" value="landscape" />
     <content src="index.html" />
     <access origin="*" />
 </widget>

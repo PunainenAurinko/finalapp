@@ -26,9 +26,12 @@ Project: Final App
 
         <section data-role="page" id="cam" class="active">
             <h2>This is the Take Photos page</h2>
+            <canvas id="canvas"></canvas>
+<!--
             <p>VHS readymade synth chillwave. Messenger bag chambray fixie, Austin Banksy biodiesel slow-carb bitters church-key crucifix. Next level kitsch Helvetica flannel Wes Anderson artisan swag messenger bag authentic Brooklyn. Vinyl you probably haven't heard of them put a bird on it Odd Future paleo gluten-free, bicycle rights DIY lo-fi. Photo booth ugh Odd Future, organic ennui put a bird on it forage health goth four dollar toast semiotics cornhole bitters vegan flannel kogi. Semiotics Bushwick whatever bitters beard kogi. Fingerstache cornhole paleo, umami Neutra McSweeney's Marfa pug!</p>
             <p>VHS readymade synth chillwave. Messenger bag chambray fixie, Austin Banksy biodiesel slow-carb bitters church-key crucifix. Next level kitsch Helvetica flannel Wes Anderson artisan swag messenger bag authentic Brooklyn. Vinyl you probably haven't heard of them put a bird on it Odd Future paleo gluten-free, bicycle rights DIY lo-fi. Photo booth ugh Odd Future, organic ennui put a bird on it forage health goth four dollar toast semiotics cornhole bitters vegan flannel kogi. Semiotics Bushwick whatever bitters beard kogi. Fingerstache cornhole paleo, umami Neutra McSweeney's Marfa pug!</p>
             <p>VHS readymade synth chillwave. Messenger bag chambray fixie, Austin Banksy biodiesel slow-carb bitters church-key crucifix. Next level kitsch Helvetica flannel Wes Anderson artisan swag messenger bag authentic Brooklyn. Vinyl you probably haven't heard of them put a bird on it Odd Future paleo gluten-free, bicycle rights DIY lo-fi. Photo booth ugh Odd Future, organic ennui put a bird on it forage health goth four dollar toast semiotics cornhole bitters vegan flannel kogi. Semiotics Bushwick whatever bitters beard kogi. Fingerstache cornhole paleo, umami Neutra McSweeney's Marfa pug!</p>
+-->
         </section>
         <section data-role="page" id="grid">
             <h2>This is the Photo Grid page</h2>
@@ -47,7 +50,7 @@ Project: Final App
     <nav class="tabs">
         <ul>
             <li class="li-1-2">
-                <a href="#grid" data-role="pagelink">
+                <a href="#grid" data-role="pagelink" id="gridlink">
                     <!--
                 SVG taken from
                 https://www.iconfinder.com/icons/186401/grid_icon#size=128
@@ -60,7 +63,7 @@ Project: Final App
             </li>
 
             <li class="li-1-2">
-                <a href="#cam" data-role="pagelink" class="activetab">
+                <a href="#cam" data-role="pagelink" id="camlink" class="activetab">
                     <!--
                     SVG taken from
 https://www.iconfinder.com/icons/196911/camera_fez_images_lens_photo_photography_shot_shutter_icon#size=128
