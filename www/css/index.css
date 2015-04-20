@@ -90,9 +90,27 @@ p {
     margin: 1rem 2rem;
 }
 
-#btn {
-    padding: 2rem;
-    margin: 1rem 5.7rem;
+.radiobtn {
+    float: left;
+    width: 22%;
+    margin-left: 4rem;
+}
+
+.radiotxt {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    padding-left: 1rem;
+}
+
+#btn1,
+#btn2 {
+    padding: 3rem;
+    margin: 2rem 5.8rem;
+    font-size: 1rem;
+}
+
+#btn2 {
+    margin: 1.6rem 6.9rem;
 }
 
 /*

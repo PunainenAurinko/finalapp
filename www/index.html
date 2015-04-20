@@ -32,7 +32,15 @@ Project: Final App
             <div id="seconddiv">
                 <input type="text" id="txt" placeholder="No more than 30 characters" maxlength="30" />
                 <br/>
-                <button id="btn">Click to add text to the image</button>
+                <div class="radiobtn">
+                    <input type="radio" name="position" value="top"><span class="radiotxt">Top</span>
+                    <br>
+                </div>
+                <div class="radiobtn">
+                    <input type="radio" name="position" value="bottom" checked><span class="radiotxt">Bottom</span>
+                </div>
+                <button id="btn1">Add text to image</button>
+                <button id="btn2">Save photo</button>
             </div>
         </section>
         <section data-role="page" id="grid">
