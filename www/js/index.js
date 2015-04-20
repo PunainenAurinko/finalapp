@@ -6,6 +6,13 @@ Project: Final App
 
 var app = {
     // Application Constructor
+    pages: [],
+    links: [],
+    numLinks: 0,
+    numPages: 0,
+    canvas: null,
+    context: null,
+    img: null,
     initialize: function () {
         this.bindEvents();
     },
@@ -99,13 +106,13 @@ var app = {
     },
 
     cameraSuccess: function (imageData) {
-        var canvas = document.querySelector('#canvas');
-        var context = canvas.getContext('2d');
+        canvas = document.querySelector('#canvas');
+        context = canvas.getContext('2d');
         canvas.width = 750;
         canvas.height = 550;
         //        context.drawImage("data:image/jpeg;base64," + imageData, 0, 0, canvas.width, canvas.height);
-        var img = document.createElement('img');
-        img.addEventListener("load", function (ev) {
+        img = document.createElement('img');
+        img.addEventListener('load', function (ev) {
             console.log(img.width + " " + img.height)
             var imgWidth = ev.currentTarget.width;
             var imgHeight = ev.currentTarget.height;
@@ -115,15 +122,37 @@ var app = {
             ev.currentTarget.width = canvas.height * aspectRatio;
             var w = img.width;
             var h = img.height;
-            console.log("width: ", w, " height: ", h, " aspect ratio: ", aspectRatio);
+            console.log('width: ', w, ' height: ', h, ' aspect ratio: ', aspectRatio);
             canvas.width = w;
-            canvas.style.width = w + "px";
+            canvas.style.width = w + 'px';
             context.drawImage(img, 0, 0, w, h);
         });
-        img.src = "data:image/jpeg;base64," + imageData;
+        img.src = 'data:image/jpeg;base64,' + imageData;
+        document.querySelector('#btn').addEventListener('click', app.addText);
     },
 
-    cameraError: function (message) {
+    addText: function (ev) {
+        var txt = document.querySelector('#txt').value;
+        if (txt != '') {
+            //clear the canvas
+            context.clearRect(0, 0, canvas.w, canvas.h);
+            //reload the image
+            var w = img.width;
+            var h = img.height;
+            context.drawImage(img, 0, 0, w, h);
+            //THEN add the new text to the image
+            var middle = canvas.width / 2;
+            var bottom = canvas.height - 50;
+            context.font = '30px "Helvetica Neue", Helvetica, Arial, sans-serif';
+            context.fillStyle = "white";
+            context.strokeStyle = "black";
+            context.textAlign = "center";
+            context.fillText(txt, middle, bottom);
+            context.strokeText(txt, middle, bottom);
+        }
+    },
+
+        cameraError: function (message) {
         //        alert('Error: ' + message);
         console.log('Error: ' + message);
     }
