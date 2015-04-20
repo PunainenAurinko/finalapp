@@ -16,6 +16,7 @@ var app = {
     dev_id: null,
     full_img: null,
     thumb: null,
+    callback: null,
     initialize: function () {
         this.bindEvents();
     },
@@ -148,8 +149,8 @@ var app = {
             //THEN add the new text to the image
             var middle = canvas.width / 2;
             if (document.getElementById('radiotop').checked == true) {
-                var bottom = canvas.height - 100;
-                console.log('raio button top clicked');
+                var bottom = canvas.height - 400;
+                console.log('top radio button checked');
             } else {
                 var bottom = canvas.height - 50;
             }
@@ -165,14 +166,14 @@ var app = {
     },
 
     saveImage: function () {
-
+        console.log("Save image function");
         var imgWidth = img.width;
         var imgHeight = img.height;
         var aspectRatio = imgWidth / imgHeight;
         console.log("width: ", imgWidth, " height: ", imgHeight, " aspect ratio: ", aspectRatio);
         //now resize the image to our desired height
-        var h = 200;
-        var w = 200 * aspectRatio;
+        var h = 180;
+        var w = 180 * aspectRatio;
         console.log("width: ", w, " height: ", h, " aspect ratio: ", aspectRatio);
         img.height = h;
         img.width = h * aspectRatio;
@@ -187,11 +188,11 @@ var app = {
             "full_img": app.full_img,
             "thumb": app.thumb
         };
-
-        console.log(app.dev_id + ' - ' + app.full_img);
-
+        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
+        console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
+        
         // var data1 = JSON.stringify(data); 
-        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", data);
+        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&full_img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
     },
 
     createAJAXObj: function () {
@@ -249,9 +250,14 @@ var app = {
                 return;
             }
             console.log(req);
-            //callback(req);
+            app.callback(req);
         }
         req.send(postData);
+    },
+    
+    callback: function (req) {
+        console.log(req);
+        callback(req);
     },
 
     cameraError: function (message) {

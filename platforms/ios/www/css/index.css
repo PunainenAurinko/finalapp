@@ -109,12 +109,12 @@ p {
 #btnAdd,
 #btnSave {
     padding: 3rem;
-    margin: 2rem 4.2rem;
+    margin: 2rem 0 2rem 5.6rem;
     font-size: 1rem;
 }
 
 #btnSave {
-    margin: 1.6rem 5.5rem;
+    margin: 1.6rem 0 1.6rem 6.9rem;
 }
 
 canvas {
