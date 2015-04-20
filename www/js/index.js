@@ -13,6 +13,9 @@ var app = {
     canvas: null,
     context: null,
     img: null,
+    dev_id: null,
+    full_img: null,
+    thumb: null,
     initialize: function () {
         this.bindEvents();
     },
@@ -83,8 +86,9 @@ var app = {
     // deviceready Event Handler function
     //
     onDeviceReady: function () {
-        var deviceID = device.uuid;
-        console.log('Device ID: ' + deviceID);
+        console.log("DEVICE IS READY");
+        app.dev_id = device.uuid;
+        console.log('Device ID: ' + app.dev_id);
         app.receivedEvent('deviceready');
     },
 
@@ -156,63 +160,98 @@ var app = {
             context.fillText(txt, middle, bottom);
             context.strokeText(txt, middle, bottom);
         }
+        app.full_img = canvas.toDataURL("image/jpeg", 1.0);
         document.querySelector('#btnSave').addEventListener('click', app.saveImage);
     },
 
     saveImage: function () {
 
-        function createAJAXObj() {
-            'use strict';
+        var imgWidth = img.width;
+        var imgHeight = img.height;
+        var aspectRatio = imgWidth / imgHeight;
+        console.log("width: ", imgWidth, " height: ", imgHeight, " aspect ratio: ", aspectRatio);
+        //now resize the image to our desired height
+        var h = 200;
+        var w = 200 * aspectRatio;
+        console.log("width: ", w, " height: ", h, " aspect ratio: ", aspectRatio);
+        img.height = h;
+        img.width = h * aspectRatio;
+        ccanvas.height = h;
+        canvas.style.height = h + "px";
+        canvas.width = w;
+        canvas.style.width = w + "px";
+        context.drawImage(img, 0, 0, w, h);
+        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
+        var data = {
+            "dev_id": app.dev_id,
+            "full_img": app.full_img,
+            "thumb": app.thumb
+        };
+
+        console.log(app.dev_id + ' - ' + app.full_img);
+
+        // var data1 = JSON.stringify(data); 
+        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", data);
+    },
+
+    createAJAXObj: function () {
+        'use strict';
+        try {
+            return new XMLHttpRequest();
+        } catch (er1) {
             try {
-                return new XMLHttpRequest();
-            } catch (er1) {
+                return new ActiveXObject("Msxml3.XMLHTTP");
+            } catch (er2) {
                 try {
-                    return new ActiveXObject("Msxml3.XMLHTTP");
-                } catch (er2) {
+                    return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+                } catch (er3) {
                     try {
-                        return new ActiveXObject("Msxml2.XMLHTTP.6.0");
-                    } catch (er3) {
+                        return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+                    } catch (er4) {
                         try {
-                            return new ActiveXObject("Msxml2.XMLHTTP.3.0");
-                        } catch (er4) {
+                            return new ActiveXObject("Msxml2.XMLHTTP");
+                        } catch (er5) {
                             try {
-                                return new ActiveXObject("Msxml2.XMLHTTP");
-                            } catch (er5) {
-                                try {
-                                    return new ActiveXObject("Microsoft.XMLHTTP");
-                                } catch (er6) {
-                                    return false;
-                                }
+                                return new ActiveXObject("Microsoft.XMLHTTP");
+                            } catch (er6) {
+                                return false;
                             }
                         }
                     }
                 }
             }
         }
+    },
 
-        function sendRequest(url, callback, postData) {
-            'use strict';
-            var req = createAJAXObj(),
-                method = (postData) ? "POST" : "GET";
-            if (!req) {
+    sendRequest: function (url, callback, postData) {
+        'use strict';
+        console.log("AJAX call function");
+        console.log(postData);
+        var req = createAJAXObj();
+        //method = (postData) ? "POST" : "GET";
+        if (!req) {
+            return;
+        }
+        console.log("MADE IT 1");
+        //console.log(method);
+        req.open("POST", "http://m.edumedia.ca/tonk0006/mad9022/final/save.php", true);
+        //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
+        if (postData) {
+            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        }
+        req.onreadystatechange = function () {
+            console.log("MADE IT");
+            console.log(req);
+            if (req.readyState !== 4) {
                 return;
             }
-            req.open(method, url, true);
-            //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
-            if (postData) {
-                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            if (req.status !== 200 && req.status !== 304) {
+                return;
             }
-            req.onreadystatechange = function () {
-                if (req.readyState !== 4) {
-                    return;
-                }
-                if (req.status !== 200 && req.status !== 304) {
-                    return;
-                }
-                callback(req);
-            }
-            req.send(postData);
+            console.log(req);
+            //callback(req);
         }
+        req.send(postData);
     },
 
     cameraError: function (message) {
