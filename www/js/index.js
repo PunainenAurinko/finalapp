@@ -92,6 +92,8 @@ var app = {
     receivedEvent: function () {
         var camlink = document.querySelector('#camlink');
         camlink.addEventListener('click', app.takePhoto);
+
+
     },
 
     takePhoto: function () {
@@ -100,16 +102,15 @@ var app = {
         //        var destType = navigator.camera.DestinationType;
         navigator.camera.getPicture(app.cameraSuccess, app.cameraError, {
             quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            allowEdit: true
+            destinationType: Camera.DestinationType.DATA_URL
         });
     },
 
     cameraSuccess: function (imageData) {
         canvas = document.querySelector('#canvas');
         context = canvas.getContext('2d');
-        canvas.width = 750;
-        canvas.height = 550;
+        canvas.width = 700;
+        canvas.height = 500;
         //        context.drawImage("data:image/jpeg;base64," + imageData, 0, 0, canvas.width, canvas.height);
         img = document.createElement('img');
         img.addEventListener('load', function (ev) {
@@ -128,7 +129,7 @@ var app = {
             context.drawImage(img, 0, 0, w, h);
         });
         img.src = 'data:image/jpeg;base64,' + imageData;
-        document.querySelector('#btn').addEventListener('click', app.addText);
+        document.querySelector('#btnAdd').addEventListener('click', app.addText);
     },
 
     addText: function (ev) {
@@ -142,7 +143,12 @@ var app = {
             context.drawImage(img, 0, 0, w, h);
             //THEN add the new text to the image
             var middle = canvas.width / 2;
-            var bottom = canvas.height - 50;
+            if (document.getElementById('radiotop').checked == true) {
+                var bottom = canvas.height - 100;
+                console.log('raio button top clicked');
+            } else {
+                var bottom = canvas.height - 50;
+            }
             context.font = '30px "Helvetica Neue", Helvetica, Arial, sans-serif';
             context.fillStyle = "white";
             context.strokeStyle = "black";
@@ -150,9 +156,66 @@ var app = {
             context.fillText(txt, middle, bottom);
             context.strokeText(txt, middle, bottom);
         }
+        document.querySelector('#btnSave').addEventListener('click', app.saveImage);
     },
 
-        cameraError: function (message) {
+    saveImage: function () {
+
+        function createAJAXObj() {
+            'use strict';
+            try {
+                return new XMLHttpRequest();
+            } catch (er1) {
+                try {
+                    return new ActiveXObject("Msxml3.XMLHTTP");
+                } catch (er2) {
+                    try {
+                        return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+                    } catch (er3) {
+                        try {
+                            return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+                        } catch (er4) {
+                            try {
+                                return new ActiveXObject("Msxml2.XMLHTTP");
+                            } catch (er5) {
+                                try {
+                                    return new ActiveXObject("Microsoft.XMLHTTP");
+                                } catch (er6) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function sendRequest(url, callback, postData) {
+            'use strict';
+            var req = createAJAXObj(),
+                method = (postData) ? "POST" : "GET";
+            if (!req) {
+                return;
+            }
+            req.open(method, url, true);
+            //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
+            if (postData) {
+                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            }
+            req.onreadystatechange = function () {
+                if (req.readyState !== 4) {
+                    return;
+                }
+                if (req.status !== 200 && req.status !== 304) {
+                    return;
+                }
+                callback(req);
+            }
+            req.send(postData);
+        }
+    },
+
+    cameraError: function (message) {
         //        alert('Error: ' + message);
         console.log('Error: ' + message);
     }
