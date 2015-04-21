@@ -16,7 +16,7 @@ var app = {
     dev_id: null,
     full_img: null,
     thumb: null,
-//    callback: null,
+    //    callback: null,
     initialize: function () {
         this.bindEvents();
     },
@@ -172,11 +172,11 @@ var app = {
         var aspectRatio = imgWidth / imgHeight;
         console.log("width: ", imgWidth, " height: ", imgHeight, " aspect ratio: ", aspectRatio);
         //now resize the image to our desired height
-        var h = 180;
-        var w = 180 * aspectRatio;
+        var h = 180 / aspectRatio;
+        var w = 180;
         console.log("width: ", w, " height: ", h, " aspect ratio: ", aspectRatio);
-        img.height = h;
-        img.width = h * aspectRatio;
+        img.height = h / aspectRatio;
+        img.width = w;
         canvas.height = h;
         canvas.style.height = h + "px";
         canvas.width = w;
@@ -188,12 +188,15 @@ var app = {
             "full_img": app.full_img,
             "thumb": app.thumb
         };
-//        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
+        //        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
         //console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
+
+        var datastring = JSON.stringify(data);
+        console.log(datastring);
+        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", datastring);
+//                app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
         
-        // var data1 = JSON.stringify(data); 
-        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", data);
-//        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&full_img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
+        context.clearRect(0, 0, canvas.width, canvas.height);
     },
 
     createAJAXObj: function () {
@@ -239,7 +242,7 @@ var app = {
         req.open("POST", "http://m.edumedia.ca/tonk0006/mad9022/final/save.php", true);
         //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
         if (postData) {
-//            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            //            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             req.setRequestHeader('Content-type', 'multipart/form-data');
         }
         req.onreadystatechange = function () {
@@ -256,11 +259,11 @@ var app = {
         }
         req.send(postData);
     },
-    
-//    callback: function (req) {
-//        console.log(req);
-//        callback(req);
-//    },
+
+    //    callback: function (req) {
+    //        console.log(req);
+    //        callback(req);
+    //    },
 
     cameraError: function (message) {
         //        alert('Error: ' + message);
