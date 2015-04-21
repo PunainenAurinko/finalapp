@@ -65,6 +65,7 @@ p {
 [data-role=page].active {
     border-radius: 15px;
     width: 100%;
+    min-height: 62.5%;
     opacity: 1;
     -webkit-transform: scale(1);
     -ms-transform: scale(1);

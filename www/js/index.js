@@ -16,7 +16,7 @@ var app = {
     dev_id: null,
     full_img: null,
     thumb: null,
-    callback: null,
+//    callback: null,
     initialize: function () {
         this.bindEvents();
     },
@@ -177,7 +177,7 @@ var app = {
         console.log("width: ", w, " height: ", h, " aspect ratio: ", aspectRatio);
         img.height = h;
         img.width = h * aspectRatio;
-        ccanvas.height = h;
+        canvas.height = h;
         canvas.style.height = h + "px";
         canvas.width = w;
         canvas.style.width = w + "px";
@@ -188,11 +188,12 @@ var app = {
             "full_img": app.full_img,
             "thumb": app.thumb
         };
-        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
-        console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
+//        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
+        //console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
         
         // var data1 = JSON.stringify(data); 
-        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&full_img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
+        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", data);
+//        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&full_img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
     },
 
     createAJAXObj: function () {
@@ -227,7 +228,7 @@ var app = {
     sendRequest: function (url, callback, postData) {
         'use strict';
         console.log("AJAX call function");
-        console.log(postData);
+        //console.log(postData);
         var req = createAJAXObj();
         //method = (postData) ? "POST" : "GET";
         if (!req) {
@@ -238,7 +239,8 @@ var app = {
         req.open("POST", "http://m.edumedia.ca/tonk0006/mad9022/final/save.php", true);
         //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
         if (postData) {
-            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            req.setRequestHeader('Content-type', 'multipart/form-data');
         }
         req.onreadystatechange = function () {
             console.log("MADE IT");
@@ -250,15 +252,15 @@ var app = {
                 return;
             }
             console.log(req);
-            app.callback(req);
+            callback(req);
         }
         req.send(postData);
     },
     
-    callback: function (req) {
-        console.log(req);
-        callback(req);
-    },
+//    callback: function (req) {
+//        console.log(req);
+//        callback(req);
+//    },
 
     cameraError: function (message) {
         //        alert('Error: ' + message);
