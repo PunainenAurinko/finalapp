@@ -236,6 +236,23 @@ var app = {
             context.fillText(txt, middle, bottom);
             context.strokeText(txt, middle, bottom);
         }
+        app.full_img = canvas.toDataURL("image/png");
+        
+                    
+        document.querySelector('#btnSave').addEventListener('click', app.saveImage);
+    },
+    
+    /////////////////////////
+    ///
+    ///     Resize thumbnal image and save both images to a postData variable
+    ///     Send request to database
+
+    saveImage: function () {
+        console.log("SaveImage function");
+    
+//        var temp_img = canvas.toDataURL("image/png");
+//        
+//        img.src = temp_img;
         
         var imgWidth = img.width;
         var imgHeight = img.height;
@@ -252,28 +269,14 @@ var app = {
         canvas.width = w;
         canvas.style.width = w + "px";
         context.drawImage(img, 0, 0, w, h);
-        
         app.thumb = canvas.toDataURL("image/png");
-        app.full_img = canvas.toDataURL("image/png");
-        
-        document.querySelector('#btnSave').addEventListener('click', app.saveImage);
-    },
-    
-    /////////////////////////
-    ///
-    ///     Resize thumbnal image and save both images to a postData variable
-    ///     Send request to database
-
-    saveImage: function () {
-        console.log("SaveImage function");
-        
         
         app.full_img = encodeURIComponent(app.full_img);
         app.thumb = encodeURIComponent(app.thumb);
         var url = "http://m.edumedia.ca/tonk0006/mad9022/final/save.php";
         var postData = "dev=" + app.dev_id + "&img=" + app.full_img  + "&thumb=" + app.thumb;
         app.sendRequest(url, app.imgSaved, postData);
-
+        
 //        context.clearRect(0, 0, canvas.width, canvas.height);
     },
 

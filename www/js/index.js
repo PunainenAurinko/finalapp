@@ -237,6 +237,8 @@ var app = {
             context.strokeText(txt, middle, bottom);
         }
         app.full_img = canvas.toDataURL("image/png");
+        
+                    
         document.querySelector('#btnSave').addEventListener('click', app.saveImage);
     },
     
@@ -247,6 +249,11 @@ var app = {
 
     saveImage: function () {
         console.log("SaveImage function");
+    
+//        var temp_img = canvas.toDataURL("image/png");
+//        
+//        img.src = temp_img;
+        
         var imgWidth = img.width;
         var imgHeight = img.height;
         var aspectRatio = imgWidth / imgHeight;
@@ -269,7 +276,7 @@ var app = {
         var url = "http://m.edumedia.ca/tonk0006/mad9022/final/save.php";
         var postData = "dev=" + app.dev_id + "&img=" + app.full_img  + "&thumb=" + app.thumb;
         app.sendRequest(url, app.imgSaved, postData);
-
+        
 //        context.clearRect(0, 0, canvas.width, canvas.height);
     },
 

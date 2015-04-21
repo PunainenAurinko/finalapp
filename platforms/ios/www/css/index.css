@@ -259,7 +259,7 @@ svg {
 #fullphoto {
     background-color: rgba(0, 0, 0, .95);
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -268,20 +268,16 @@ svg {
 }
 
 #fullphoto img {
-/*    margin: 5vh 10vw 3vh 10vw;*/
-/*    width: 80%;*/
-    max-width: 80%;
-    margin: 3vh 10%;
-    max-height: 80vh;
-   
-    
+    display: block;
+    margin: 5rem auto 5rem auto;
 }
 
 #photoClose {
     background-color: rgba(255, 255, 255, .4);
     border: none;
     color: #FFF;
-    height: 3vh;
+    height: 7vh;
     margin: 0 35%;
     width: 30%;
+    font-size: 1rem;
 }
