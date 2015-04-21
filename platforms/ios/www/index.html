@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Final App</title>
 </head>
@@ -44,9 +44,16 @@
             </div>
         </section>
         <section data-role="page" id="grid">
-            <h2>This is the Photo Grid page</h2>
-            <p>Gluten-free mumblecore Etsy deep v DIY synth. Ethical biodiesel whatever Tumblr you probably haven't heard of them, meh plaid tattooed dreamcatcher Bushwick banh mi. Skateboard 8-bit quinoa next level direct trade Truffaut. Chia listicle hella, put a bird on it chambray you probably haven't heard of them lumbersexual ethical semiotics literally. Skateboard vegan quinoa, chambray chillwave ethical flannel 8-bit pour-over farm-to-table. Schlitz McSweeney's retro, fixie sartorial banjo migas photo booth authentic biodiesel. Chambray mustache pug authentic VHS, cliche narwhal small batch deep v hella beard farm-to-table!</p>
-            <p>Gluten-free mumblecore Etsy deep v DIY synth. Ethical biodiesel whatever Tumblr you probably haven't heard of them, meh plaid tattooed dreamcatcher Bushwick banh mi. Skateboard 8-bit quinoa next level direct trade Truffaut. Chia listicle hella, put a bird on it chambray you probably haven't heard of them lumbersexual ethical semiotics literally. Skateboard vegan quinoa, chambray chillwave ethical flannel 8-bit pour-over farm-to-table. Schlitz McSweeney's retro, fixie sartorial banjo migas photo booth authentic biodiesel. Chambray mustache pug authentic VHS, cliche narwhal small batch deep v hella beard farm-to-table!</p>
+            <h2>Photos</h2>
+<!-- JUSTIN: Removed all content after h2-->
+        </section>
+
+    </div>
+<!--JUSTIN: Added fullphoto-->
+    <section id="fullphoto">
+       
+        <button id="photoClose">Close</button>
+    </section>
         </section>
 
         <!--
@@ -59,7 +66,7 @@
     <nav class="tabs">
         <ul>
             <li class="li-1-2">
-                <a href="#grid" data-role="pagelink" id="gridlink">
+                <a href="#grid" data-role="pagelink" id="gridpage">
                     <!--
                 SVG taken from
                 https://www.iconfinder.com/icons/186401/grid_icon#size=128
@@ -87,7 +94,8 @@ https://www.iconfinder.com/icons/196911/camera_fez_images_lens_photo_photography
         </ul>
     </nav>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/justin.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-</body>
+    </body>
 
 </html>

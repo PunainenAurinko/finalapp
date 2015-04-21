@@ -110,7 +110,58 @@ var app = {
     receivedEvent: function () {
         var camlink = document.querySelector('#camlink');
         camlink.addEventListener('click', app.takePhoto);
+        
+        // Event listener for Grid tab.... may need to add one for the other tab to clear out
+        // existing elements. 
+		
+		var gridpage = document.getElementById('gridpage');
+		gridpage.addEventListener('click', app.showGridPage);
     },
+    
+    /////////////////////////////////////////////////////////////////
+    //
+    // JUSTIN ADDED
+    
+    showGridPage: function() {
+        
+        //TODO: deviceID will come from Cordova plugin
+        var deviceId = app.dev_id,
+            urlString = 'http://m.edumedia.ca/benn0039/mad9022/list.php?dev=' + deviceId;
+            
+        var jjj = sendRequest(urlString, function(resp){
+            var data = JSON.parse(resp.responseText);
+            console.log(resp);
+            switch(data.code){
+                  case 0:
+                    console.log("SUCCESS: " +data.message);
+                    
+                    //successfully returned an object but could be empty...
+                    if (data.thumbnails.length != 0) {
+                        
+                    // create new thumbnail for each record
+                        for(var i = 0; i < data.thumbnails.length; i++) {
+                            var thumb = new thumbnail(data.thumbnails[i].id, data.thumbnails[i].data);
+                            thumb.makeDOMElement();
+                        }                       
+                        console.log("SUCCESS and you got some data!");
+                    } else {
+                        console.log("Connected to the database but it appears you don't have anything to get?");
+                    }
+                    break;
+                    
+                case 423:
+                    console.log("ERROR: " +data.message);
+                    break;
+                    
+                case 543:
+                    console.log("ERROR: " +data.message);
+                    break;
+            }
+        }, "POST");
+    },
+    //
+    //
+    ///////////////////////////////////////////////////////////////
     
     /////////////////////////
     ///
