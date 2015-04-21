@@ -16,7 +16,7 @@ var app = {
     dev_id: null,
     full_img: null,
     thumb: null,
-    //    callback: null,
+//    urlString: '',
     initialize: function () {
         this.bindEvents();
     },
@@ -119,7 +119,7 @@ var app = {
         //        context.drawImage("data:image/jpeg;base64," + imageData, 0, 0, canvas.width, canvas.height);
         img = document.createElement('img');
         img.addEventListener('load', function (ev) {
-            console.log(img.width + " " + img.height)
+            console.log('Original image width: ' + img.width + '\nOriginal image height: ' + img.height)
             var imgWidth = ev.currentTarget.width;
             var imgHeight = ev.currentTarget.height;
             var aspectRatio = imgWidth / imgHeight;
@@ -155,7 +155,7 @@ var app = {
                 var bottom = canvas.height - 50;
             }
             context.font = '30px "Helvetica Neue", Helvetica, Arial, sans-serif';
-            context.fillStyle = "white";
+            context.fillStyle = "red";
             context.strokeStyle = "black";
             context.textAlign = "center";
             context.fillText(txt, middle, bottom);
@@ -188,16 +188,44 @@ var app = {
             "full_img": app.full_img,
             "thumb": app.thumb
         };
-        //        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
+
         //console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
 
         var datastring = JSON.stringify(data);
-        console.log(datastring);
-        app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", datastring);
-//                app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
+        //console.log(datastring);
+        //app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", datastring);
+        //                app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
+
+//        var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=' + app.dev_id + '&img=' + app.full_img + '&thumb=' + app.thumb;
         
+        var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php';
+        
+        var params = "dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb;
+        
+        //console.log(urlString.length);
+
+        var jjj = app.sendRequest(urlString, function (resp) {
+            var data = JSON.parse(resp.responseText);
+
+            switch (data.code) {
+            case 0:
+                console.log("SUCCESS!");
+                break;
+
+            case 423:
+                console.log("ERROR: " + data.message);
+                break;
+
+            case 543:
+                console.log("ERROR: " + data.message);
+                break;
+            }
+        }, datastring);
+
         context.clearRect(0, 0, canvas.width, canvas.height);
     },
+
+    //CROSS BROWSER AJAX CALL
 
     createAJAXObj: function () {
         'use strict';
@@ -228,37 +256,64 @@ var app = {
         }
     },
 
+    // APP AJAX CALL
+
     sendRequest: function (url, callback, postData) {
         'use strict';
-        console.log("AJAX call function");
-        //console.log(postData);
-        var req = createAJAXObj();
-        //method = (postData) ? "POST" : "GET";
+        var req = app.createAJAXObj(),
+            method = (postData) ? "POST" : "GET";
         if (!req) {
             return;
         }
-        console.log("MADE IT 1");
-        //console.log(method);
-        req.open("POST", "http://m.edumedia.ca/tonk0006/mad9022/final/save.php", true);
+        req.open(method, url, true);
         //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
         if (postData) {
-            //            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            req.setRequestHeader('Content-type', 'multipart/form-data');
+            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         }
         req.onreadystatechange = function () {
-            console.log("MADE IT");
-            console.log(req);
             if (req.readyState !== 4) {
                 return;
             }
             if (req.status !== 200 && req.status !== 304) {
                 return;
             }
-            console.log(req);
             callback(req);
         }
         req.send(postData);
     },
+
+
+    //    sendRequest: function (url, callback, postData) {
+    //        'use strict';
+    //        console.log("AJAX call function");
+    //        //console.log(postData);
+    //        var req = createAJAXObj();
+    //        //method = (postData) ? "POST" : "GET";
+    //        if (!req) {
+    //            return;
+    //        }
+    //        console.log("MADE IT 1");
+    //        //console.log(method);
+    //        req.open("POST", "http://m.edumedia.ca/tonk0006/mad9022/final/save.php", true);
+    //        //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
+    //        if (postData) {
+    //            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    ////            req.setRequestHeader('Content-type', 'multipart/form-data');
+    //        }
+    //        req.onreadystatechange = function () {
+    //            console.log("MADE IT");
+    //            console.log(req);
+    //            if (req.readyState !== 4) {
+    //                return;
+    //            }
+    //            if (req.status !== 200 && req.status !== 304) {
+    //                return;
+    //            }
+    //            console.log(req);
+    //            callback(req);
+    //        }
+    //        req.send(postData);
+    //    },
 
     //    callback: function (req) {
     //        console.log(req);
