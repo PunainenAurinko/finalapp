@@ -131,6 +131,7 @@ var app = {
     cameraSuccess: function (imageData) {
         canvas = document.querySelector('#canvas');
         context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
         canvas.width = 700;
         canvas.height = 500;
         //        context.drawImage("data:image/jpeg;base64," + imageData, 0, 0, canvas.width, canvas.height);
@@ -148,6 +149,8 @@ var app = {
             console.log('width: ', w, ' height: ', h, ' aspect ratio: ', aspectRatio);
             canvas.width = w;
             canvas.style.width = w + 'px';
+            canvas.height = h;
+            canvas.style.height = h + "px";
             context.drawImage(img, 0, 0, w, h);
         });
         img.src = 'data:image/jpeg;base64,' + imageData;
@@ -216,7 +219,7 @@ var app = {
         var postData = "dev=" + app.dev_id + "&img=" + app.full_img  + "&thumb=" + app.thumb;
         app.sendRequest(url, app.imgSaved, postData);
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
+//        context.clearRect(0, 0, canvas.width, canvas.height);
     },
 
     
