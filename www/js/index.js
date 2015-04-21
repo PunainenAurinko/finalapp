@@ -1,11 +1,14 @@
-/*
-Course: MAD9022 Cross-Platform App Development
-Students: Justin Bennet & Vladimir Tonkonogov
-Project: Final App
- */
+/////////////////////////
+///
+///     Course: MAD9022 Cross-Platform App Development
+///     Students: Justin Bennet & Vladimir Tonkonogov
+///     Project: Final App
+
+/////////////////////////
+///
+///     Application Constructor
 
 var app = {
-    // Application Constructor
     pages: [],
     links: [],
     numLinks: 0,
@@ -16,36 +19,39 @@ var app = {
     dev_id: null,
     full_img: null,
     thumb: null,
-//    urlString: '',
+    req: null,
+    //    urlString: '',
     initialize: function () {
         this.bindEvents();
     },
 
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+    /////////////////////////
+    ///
+    ///     Bind Event Listeners
+    
     bindEvents: function () {
         document.addEventListener('DOMContentLoaded', this.onContentLoaded, false);
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
 
-    // DOMContentLoaded Event Handler function
-    //
+    /////////////////////////
+    ///
+    ///     DOMContentLoaded Event Handler - set up navigation listener
+    
     onContentLoaded: function () {
         pages = document.querySelectorAll('[data-role="page"]');
         numPages = pages.length;
         links = document.querySelectorAll('[data-role="pagelink"]');
         numLinks = links.length;
         for (var i = 0; i < numLinks; i++) {
-            //either add a touch or click listener
-
             links[i].addEventListener('click', app.handleNav, false);
         }
         app.loadPage(null);
     },
 
-    // Handle the click event
+    /////////////////////////
+    ///
+    ///     Handle tab click event to navigate between pages
 
     handleNav: function (ev) {
         ev.preventDefault();
@@ -56,7 +62,9 @@ var app = {
         return false;
     },
 
-    // Deal with history API and switching between tabs, and enable transitions
+    /////////////////////////
+    ///
+    ///     Handle page transitions
 
     loadPage: function (url) {
         if (url == null) {
@@ -84,8 +92,10 @@ var app = {
         }
     },
 
-    // deviceready Event Handler function
-    //
+    /////////////////////////
+    ///
+    ///     deviceready Event Handler function - get unique device id
+    
     onDeviceReady: function () {
         console.log("DEVICE IS READY");
         app.dev_id = device.uuid;
@@ -93,24 +103,31 @@ var app = {
         app.receivedEvent('deviceready');
     },
 
-    // Update DOM on a Received Event
+    /////////////////////////
+    ///
+    ///     Set up event listener for take photos button
+    
     receivedEvent: function () {
         var camlink = document.querySelector('#camlink');
         camlink.addEventListener('click', app.takePhoto);
-
-
     },
+    
+    /////////////////////////
+    ///
+    ///     Take photos using the device camera
 
     takePhoto: function () {
         console.log('takePhoto func');
-        //        var sourceType = navigator.camera.PictureSourceType;
-        //        var destType = navigator.camera.DestinationType;
         navigator.camera.getPicture(app.cameraSuccess, app.cameraError, {
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
         });
     },
 
+    /////////////////////////
+    ///
+    ///     Camera success function - resize the taken image and display it on canvas
+    
     cameraSuccess: function (imageData) {
         canvas = document.querySelector('#canvas');
         context = canvas.getContext('2d');
@@ -136,7 +153,11 @@ var app = {
         img.src = 'data:image/jpeg;base64,' + imageData;
         document.querySelector('#btnAdd').addEventListener('click', app.addText);
     },
-
+    
+    /////////////////////////
+    ///
+    ///     Add text to image
+    
     addText: function (ev) {
         var txt = document.querySelector('#txt').value;
         if (txt != '') {
@@ -161,17 +182,22 @@ var app = {
             context.fillText(txt, middle, bottom);
             context.strokeText(txt, middle, bottom);
         }
-        app.full_img = canvas.toDataURL("image/jpeg", 1.0);
+        app.full_img = canvas.toDataURL("image/png");
         document.querySelector('#btnSave').addEventListener('click', app.saveImage);
     },
+    
+    /////////////////////////
+    ///
+    ///     Resize thumbnal image and save both images to a postData variable
+    ///     Send request to database
 
     saveImage: function () {
-        console.log("Save image function");
+        console.log("SaveImage function");
         var imgWidth = img.width;
         var imgHeight = img.height;
         var aspectRatio = imgWidth / imgHeight;
-        console.log("width: ", imgWidth, " height: ", imgHeight, " aspect ratio: ", aspectRatio);
-        //now resize the image to our desired height
+        
+        // Resize the thumbnail image to be 180px wide & save base64 png image to thumb variable
         var h = 180 / aspectRatio;
         var w = 180;
         console.log("width: ", w, " height: ", h, " aspect ratio: ", aspectRatio);
@@ -182,53 +208,24 @@ var app = {
         canvas.width = w;
         canvas.style.width = w + "px";
         context.drawImage(img, 0, 0, w, h);
-        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
-        var data = {
-            "dev_id": app.dev_id,
-            "full_img": app.full_img,
-            "thumb": app.thumb
-        };
-
-        //console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
-
-        var datastring = JSON.stringify(data);
-        //console.log(datastring);
-        //app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", datastring);
-        //                app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
-
-//        var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=' + app.dev_id + '&img=' + app.full_img + '&thumb=' + app.thumb;
+        app.thumb = canvas.toDataURL("image/png");
         
-        var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php';
-        
-        var params = "dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb;
-        
-        //console.log(urlString.length);
-
-        var jjj = app.sendRequest(urlString, function (resp) {
-            var data = JSON.parse(resp.responseText);
-
-            switch (data.code) {
-            case 0:
-                console.log("SUCCESS!");
-                break;
-
-            case 423:
-                console.log("ERROR: " + data.message);
-                break;
-
-            case 543:
-                console.log("ERROR: " + data.message);
-                break;
-            }
-        }, datastring);
+        app.full_img = encodeURIComponent(app.full_img);
+        app.thumb = encodeURIComponent(app.thumb);
+        var url = "http://m.edumedia.ca/tonk0006/mad9022/final/save.php";
+        var postData = "dev=" + app.dev_id + "&img=" + app.full_img  + "&thumb=" + app.thumb;
+        app.sendRequest(url, app.imgSaved, postData);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
     },
 
-    //CROSS BROWSER AJAX CALL
+    
+    /////////////////////////
+    ///
+    ///     CROSS BROWSER AJAX CALL
+    ///     Create ajax obj
 
     createAJAXObj: function () {
-        'use strict';
         try {
             return new XMLHttpRequest();
         } catch (er1) {
@@ -256,12 +253,12 @@ var app = {
         }
     },
 
-    // APP AJAX CALL
+    /////////////////////////
+    ///
+    ///     Make an ajax call
 
     sendRequest: function (url, callback, postData) {
-        'use strict';
-        var req = app.createAJAXObj(),
-            method = (postData) ? "POST" : "GET";
+        req = app.createAJAXObj(), method = (postData) ? "POST" : "GET";
         if (!req) {
             return;
         }
@@ -281,50 +278,29 @@ var app = {
         }
         req.send(postData);
     },
+    
+    /////////////////////////
+    ///
+    ///     Handle ajax call response
 
-
-    //    sendRequest: function (url, callback, postData) {
-    //        'use strict';
-    //        console.log("AJAX call function");
-    //        //console.log(postData);
-    //        var req = createAJAXObj();
-    //        //method = (postData) ? "POST" : "GET";
-    //        if (!req) {
-    //            return;
-    //        }
-    //        console.log("MADE IT 1");
-    //        //console.log(method);
-    //        req.open("POST", "http://m.edumedia.ca/tonk0006/mad9022/final/save.php", true);
-    //        //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
-    //        if (postData) {
-    //            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    ////            req.setRequestHeader('Content-type', 'multipart/form-data');
-    //        }
-    //        req.onreadystatechange = function () {
-    //            console.log("MADE IT");
-    //            console.log(req);
-    //            if (req.readyState !== 4) {
-    //                return;
-    //            }
-    //            if (req.status !== 200 && req.status !== 304) {
-    //                return;
-    //            }
-    //            console.log(req);
-    //            callback(req);
-    //        }
-    //        req.send(postData);
-    //    },
-
-    //    callback: function (req) {
-    //        console.log(req);
-    //        callback(req);
-    //    },
+    imgSaved: function (req) {
+        alert(req.responseText);
+        console.log(req.responseText);
+    },
+    
+    /////////////////////////
+    ///
+    ///     Handle camera errors
 
     cameraError: function (message) {
-        //        alert('Error: ' + message);
+        alert('Error: ' + message);
         console.log('Error: ' + message);
     }
 
 };
+
+/////////////////////////
+///
+///     Initialize the app variable
 
 app.initialize();

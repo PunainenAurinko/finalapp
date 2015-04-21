@@ -16,7 +16,8 @@ var app = {
     dev_id: null,
     full_img: null,
     thumb: null,
-//    urlString: '',
+    req: null,
+    //    urlString: '',
     initialize: function () {
         this.bindEvents();
     },
@@ -161,7 +162,7 @@ var app = {
             context.fillText(txt, middle, bottom);
             context.strokeText(txt, middle, bottom);
         }
-        app.full_img = canvas.toDataURL("image/jpeg", 1.0);
+        app.full_img = canvas.toDataURL("image/png");
         document.querySelector('#btnSave').addEventListener('click', app.saveImage);
     },
 
@@ -182,53 +183,60 @@ var app = {
         canvas.width = w;
         canvas.style.width = w + "px";
         context.drawImage(img, 0, 0, w, h);
-        app.thumb = canvas.toDataURL("image/jpeg", 1.0);
-        var data = {
-            "dev_id": app.dev_id,
-            "full_img": app.full_img,
-            "thumb": app.thumb
-        };
+        app.thumb = canvas.toDataURL("image/png");
+        //        var data = {
+        //            "dev_id": app.dev_id,
+        //            "full_img": app.full_img,
+        //            "thumb": app.thumb
+        //        };
 
         //console.log(app.dev_id + ' - ' + app.full_img + ' - ' + app.thumb);
 
-        var datastring = JSON.stringify(data);
+        //var datastring = JSON.stringify(data);
         //console.log(datastring);
         //app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php", "NULL", datastring);
         //                app.sendRequest("http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb, app.callback(), "POST");
 
-//        var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=' + app.dev_id + '&img=' + app.full_img + '&thumb=' + app.thumb;
-        
+        //        var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php?dev=' + app.dev_id + '&img=' + app.full_img + '&thumb=' + app.thumb;
+
         var urlString = 'http://m.edumedia.ca/tonk0006/mad9022/final/save.php';
-        
+
         var params = "dev=" + app.dev_id + "&img=" + app.full_img + "&thumb=" + app.thumb;
-        
+
         //console.log(urlString.length);
 
-        var jjj = app.sendRequest(urlString, function (resp) {
-            var data = JSON.parse(resp.responseText);
+        //        var jjj = app.sendRequest(urlString, function (resp) {
+        //            var data = JSON.parse(resp.responseText);
+        //
+        //            switch (data.code) {
+        //            case 0:
+        //                console.log("SUCCESS!");
+        //                break;
+        //
+        //            case 423:
+        //                console.log("ERROR: " + data.message);
+        //                break;
+        //
+        //            case 543:
+        //                console.log("ERROR: " + data.message);
+        //                break;
+        //            }
+        //        }, datastring);
 
-            switch (data.code) {
-            case 0:
-                console.log("SUCCESS!");
-                break;
-
-            case 423:
-                console.log("ERROR: " + data.message);
-                break;
-
-            case 543:
-                console.log("ERROR: " + data.message);
-                break;
-            }
-        }, datastring);
+        app.full_img = encodeURIComponent(app.full_img);
+        app.thumb = encodeURIComponent(app.thumb);
+        var url = "http://m.edumedia.ca/tonk0006/mad9022/final/save.php";
+        var postData = "dev=" + app.dev_id + "&img=" + app.full_img  + "&thumb=" + app.thumb;
+        app.sendRequest(url, app.imgSaved, postData);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
     },
 
-    //CROSS BROWSER AJAX CALL
+    // CROSS BROWSER AJAX CALL
+    //
+    // CREATE AJAX OBJ
 
     createAJAXObj: function () {
-        'use strict';
         try {
             return new XMLHttpRequest();
         } catch (er1) {
@@ -256,12 +264,10 @@ var app = {
         }
     },
 
-    // APP AJAX CALL
+    // APP AJAX VALL
 
     sendRequest: function (url, callback, postData) {
-        'use strict';
-        var req = app.createAJAXObj(),
-            method = (postData) ? "POST" : "GET";
+        req = app.createAJAXObj(), method = (postData) ? "POST" : "GET";
         if (!req) {
             return;
         }
@@ -281,6 +287,63 @@ var app = {
         }
         req.send(postData);
     },
+
+    //    //CROSS BROWSER AJAX CALL
+    //
+    //    createAJAXObj: function () {
+    //        'use strict';
+    //        try {
+    //            return new XMLHttpRequest();
+    //        } catch (er1) {
+    //            try {
+    //                return new ActiveXObject("Msxml3.XMLHTTP");
+    //            } catch (er2) {
+    //                try {
+    //                    return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+    //                } catch (er3) {
+    //                    try {
+    //                        return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+    //                    } catch (er4) {
+    //                        try {
+    //                            return new ActiveXObject("Msxml2.XMLHTTP");
+    //                        } catch (er5) {
+    //                            try {
+    //                                return new ActiveXObject("Microsoft.XMLHTTP");
+    //                            } catch (er6) {
+    //                                return false;
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    },
+    //
+    //    // APP AJAX CALL
+    //
+    //    sendRequest: function (url, callback, postData) {
+    //        'use strict';
+    //        var req = app.createAJAXObj(),
+    //            method = (postData) ? "POST" : "GET";
+    //        if (!req) {
+    //            return;
+    //        }
+    //        req.open(method, url, true);
+    //        //req.setRequestHeader('User-Agent', 'XMLHTTP/1.0');
+    //        if (postData) {
+    //            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //        }
+    //        req.onreadystatechange = function () {
+    //            if (req.readyState !== 4) {
+    //                return;
+    //            }
+    //            if (req.status !== 200 && req.status !== 304) {
+    //                return;
+    //            }
+    //            callback(req);
+    //        }
+    //        req.send(postData);
+    //    },
 
 
     //    sendRequest: function (url, callback, postData) {
@@ -319,6 +382,11 @@ var app = {
     //        console.log(req);
     //        callback(req);
     //    },
+
+    imgSaved: function (req) {
+        alert(req.responseText);
+        console.log(req.responseText);
+    },
 
     cameraError: function (message) {
         //        alert('Error: ' + message);
