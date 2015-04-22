@@ -20,7 +20,7 @@ var app = {
     full_img: null,
     thumb: null,
     req: null,
-    //    urlString: '',
+//    aspectratio: null,
     initialize: function () {
         this.bindEvents();
     },
@@ -124,14 +124,25 @@ var app = {
     
     showGridPage: function() {
         
+        // Clears out any residual thumbs from previous loads
+        // Justin - April 22, 2015 - 1:57 am
+                    
+        var parent = document.getElementById('grid'),
+            prevThumbs = document.querySelectorAll('.thumb');
+
+        if(prevThumbs.length != 0) {
+            parent.innerHTML = ' ';
+            console.log("Found residual thumbnail elements.. clearing");
+        }
+        
         //TODO: deviceID will come from Cordova plugin
         var deviceId = app.dev_id,
             urlString = 'http://m.edumedia.ca/benn0039/mad9022/list.php?dev=' + deviceId;
             
-        var jjj = sendRequest(urlString, function(resp){
+        var jjj = sendRequest(urlString, function(resp) {
             var data = JSON.parse(resp.responseText);
             console.log(resp);
-            switch(data.code){
+            switch(data.code) {
                   case 0:
                     console.log("SUCCESS: " +data.message);
                     
@@ -169,6 +180,11 @@ var app = {
 
     takePhoto: function () {
         console.log('takePhoto func');
+        
+//        var grid = document.getElementById('grid');
+//        var container = document.querySelector('.imgContainer');
+//        grid.removeChild(container);
+        
         navigator.camera.getPicture(app.cameraSuccess, app.cameraError, {
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
@@ -182,7 +198,7 @@ var app = {
     cameraSuccess: function (imageData) {
         canvas = document.querySelector('#canvas');
         context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
+//        context.clearRect(0, 0, canvas.width, canvas.height);
         canvas.width = 700;
         canvas.height = 500;
         //        context.drawImage("data:image/jpeg;base64," + imageData, 0, 0, canvas.width, canvas.height);
@@ -191,7 +207,7 @@ var app = {
             console.log('Original image width: ' + img.width + '\nOriginal image height: ' + img.height)
             var imgWidth = ev.currentTarget.width;
             var imgHeight = ev.currentTarget.height;
-            var aspectRatio = imgWidth / imgHeight;
+            aspectRatio = imgWidth / imgHeight;
             console.log(aspectRatio);
             ev.currentTarget.height = canvas.height;
             ev.currentTarget.width = canvas.height * aspectRatio;
@@ -238,7 +254,6 @@ var app = {
         }
         app.full_img = canvas.toDataURL("image/png");
         
-                    
         document.querySelector('#btnSave').addEventListener('click', app.saveImage);
     },
     
@@ -249,6 +264,18 @@ var app = {
 
     saveImage: function () {
         console.log("SaveImage function");
+        
+//        var small_img = document.createElement('img');
+//        small_img.src = app.full_img;
+//        
+//        var h = 180 / aspectRatio;
+//        var w = 180;
+//        canvas.height = h;
+//        canvas.style.height = h + "px";
+//        canvas.width = w;
+//        canvas.style.width = w + "px";
+//        context.drawImage(small_img, 0, 0, w, h);
+//        app.thumb = canvas.toDataURL("image/png");
     
 //        var temp_img = canvas.toDataURL("image/png");
 //        

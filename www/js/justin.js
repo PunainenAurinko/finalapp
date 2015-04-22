@@ -16,7 +16,8 @@ function thumbnail(id, b64) {
 	
 	this.makeDOMElement = function() {
 		// list.php
-		var parent = document.getElementById('grid'),
+        
+        var parent = document.getElementById('grid'),
 			newContainer = document.createElement('div'),
 			newImg = document.createElement('img'),
 			newBtn = document.createElement('button');
